@@ -1,5 +1,4 @@
 import os
-import pprint
 import json
 from pathlib import Path
 import platform
@@ -8,16 +7,26 @@ print()
 print(f'Current OS: {platform.system()}')
 print()
 
-# Create project folder with client and server subfolders
+# Create project folder
 project_name = input("Project Name: ")
+
+# Client
 Path(f'./{project_name}').mkdir()
-Path(f'./{project_name}/server').mkdir()
-Path(f'./{project_name}/server/server.js').touch()
-Path(f'./{project_name}/client').mkdir()
-Path(f'./{project_name}/.gitignore').touch()
+os.chdir(Path(f"./{project_name}"))
+os.system("npm create vite@latest client -- --template react")
+os.chdir(Path("./client"))
+os.system("npm install")
+os.chdir(Path("./src"))
+os.system("mkdir components views")
+os.chdir(Path("../.."))
+
+# Server
+Path('./server').mkdir()
+Path('./server/server.js').touch()
+Path('./.gitignore').touch()
 
 # Run npm commands to initialize the server file
-os.chdir(Path(f"./{project_name}/server"))
+os.chdir(Path("./server"))
 os.system("npm init -y")
 os.system("npm install mongoose express dotenv cors")
 os.system("npm install --save-dev nodemon")
@@ -45,7 +54,7 @@ with open(Path("./config/mongoose.config.js"), "w") as mongoose:
         "async function dbConnect() {\n",
         "  try {\n",
         "    await connect(MONGODB_URI, {\n",
-        "    dbName: 'booksDB',\n",
+        "    dbName: 'booksDB', //Make sure to change this here\n",
         "    });\n",
         "    console.log('Pinged your deployment. You successfully connected to MongoDB!');\n",
         "  } catch (error) {\n",
