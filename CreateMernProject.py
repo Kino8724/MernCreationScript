@@ -68,3 +68,8 @@ with open(Path("./server.js"), "w") as server:
     server.write("dbConnect();\n")
     server.write(
         "app.listen(PORT, console.log(`Listening on port: ${PORT}`)) \n")
+
+# Add .env boilerplate
+with open(Path("./.env"), "w") as environment:
+    environment.write("PORT=8000")
+    environment.write("MONGODB_URI=<add your link here>")
