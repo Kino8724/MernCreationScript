@@ -81,5 +81,5 @@ with open(Path("./server.js"), "w") as server:
 
 # Add .env boilerplate
 with open(Path("./.env"), "w") as environment:
-    environment.write("PORT=8000")
+    environment.write("PORT=8000\n")
     environment.write("MONGODB_URI=<add your link here>")
